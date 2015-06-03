@@ -106,8 +106,8 @@ DATABASES = {
         'NAME': 'tecnoservicio_test',
         'USER': 'postgres',
         'PASSWORD': 'postgresql',
-        'HOST': '127.0.0.1',
-        'PORT': '5433',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
 DATABASES['default']['ATOMIC_REQUESTS'] = True

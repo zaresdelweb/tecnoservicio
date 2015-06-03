@@ -16,9 +16,9 @@ ROOT_DIR = environ.Path(__file__) - 3  # (/a/b/myfile.py - 3 = /)
 APPS_DIR = ROOT_DIR.path('tecnoservicio')
 
 try:
-    import var_production
+    from .var_production import *
 except:
-    import var_local
+    from .var_local import *
 
 # APP CONFIGURATION
 # ------------------------------------------------------------------------------
@@ -104,7 +104,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'tecnoservicio_test',
-        'USER': 'zares',
+        'USER': 'postgres',
         'PASSWORD': 'postgresql',
         'HOST': '127.0.0.1',
         'PORT': '5433',
@@ -264,7 +264,5 @@ LOGGING = {
         },
     }
 }
-
-
 
 # Your common stuff: Below this line define 3rd party library settings

@@ -80,7 +80,8 @@ MIGRATION_MODULES = {
 # DEBUG
 # ------------------------------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#debug
-DEBUG = VAR_DJANGO_DEBUG
+DEBUG = False
+#DEBUG = VAR_DJANGO_DEBUG
 
 # FIXTURE CONFIGURATION
 # ------------------------------------------------------------------------------

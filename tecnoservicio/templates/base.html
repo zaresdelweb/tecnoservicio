@@ -1,88 +1,203 @@
-{% load staticfiles i18n %}<!DOCTYPE html>
-<html lang="en" ng-app>
-  <head>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
     <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>{% block title %}tecnoservicio{% endblock title %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
 
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+    <title>Tecnoservicio</title>
+    <link rel="shortcut icon" href="{{STATIC_URL}}images/favicon.png">
 
-    {% block css %}
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link href="{{STATIC_URL}}inspinia/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+    <link href="{{STATIC_URL}}inspinia/css/animate.css" rel="stylesheet">
+    <link href="{{STATIC_URL}}inspinia/css/style.css" rel="stylesheet">
 
-    <!-- Your stuff: Third-party css libraries go here -->
+</head>
 
-    <!-- This file store project specific CSS -->
-    <link href="{% static 'css/project.css' %}" rel="stylesheet">
-    {% endblock %}
+{%block css%}
+{%endblock%}
 
-    {% block angular %}
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
-    {% endblock %}
+<style type="text/css" media="screen">    
+    .skin-1 .nav > li > a {
+        color: #CECECE;
+    }
+    .input-group[class*=col-] {
+      padding-right: 5px;
+      padding-left: 5px;
+    }
+</style>
 
-  </head>
+{%block styles%}
+{%endblock%}
 
-  <body>
+<body class="skin-1">
 
-    <div class="header navbar">
-      <div class="container">
-        <a class="navbar-brand" href="/">tecnoservicio</a>
-        <ul class="nav navbar-nav">
-          <li class="active"><a href="{% url 'home' %}">Home</a></li>
-          <li><a href="{% url 'about' %}">About</a></li>
+    <div id="wrapper">
 
-          {% if request.user.is_authenticated %}
-            <li><a href="{% url 'users:detail' request.user.username  %}">{% trans "My Profile" %}</a></li>
-            <li><a href="{% url 'account_logout' %}">{% trans "Logout" %}</a></li>
-          {% else %}
-            <li><a href="{% url 'account_signup' %}">{% trans "Sign Up" %}</a></li>
-            <li><a href="{% url 'account_login' %}">{% trans "Log In" %}</a></li>
-          {% endif %}
-        </ul>
-      </div>
+        <nav class="navbar-default navbar-static-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="side-menu">
+                    <li class="nav-header" style="padding: 8px 20px 5px 20px;">
+                        <div class="dropdown profile-element"> <span>
+                                <img alt="image" class="img-circle" src="{{STATIC_URL}}images/logo.png" style="width: 70%;"/>
+                                 </span>
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                <span class="clear"> 
+                                    <span class="block m-t-xs"> <strong class="font-bold">{{request.user.username}}</strong></span>
+                                </span> 
+                                <span class="text-muted text-xs block">{{request.user.perfil}}
+                                <hr style="margin-top: 2px;margin-bottom: 2px;"/>
+                                <span class="clear"> 
+                                    <span class="text-muted text-xs block">(0155) 5513-4050</span>
+                                    <span class="text-muted text-xs block">(0155) 5601-4868</span>
+                                    <span class="text-muted text-xs block">(01800) 838-6825</span>
+                                </span>
+                            </a>
+                            
+                        </div>
+                        <div class="logo-element">
+                            ST
+                        </div>
+                    </li>
+                    <li>
+                        {% if request.user.is_superuser or request.user.perfil == 'Administrador' %}
+                        <a href="#"><i class="fa fa-user"></i> <span class="nav-label">Usuarios</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="{%url 'lista_usuario'%}">Listado</a>
+                            </li>
+                            <li>
+                                <a href="{%url 'alta_usuario'%}"><i class="fa fa-plus"></i> Agregar</a>
+                            </li>
+                        </ul>
+                        {%endif%}
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-file-text"></i> <span class="nav-label">Ordenes</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="{%url 'lista_orden'%}">Listado</a>
+                            </li>
+                            <li>
+                                <a href="{%url 'alta_orden'%}"><i class="fa fa-plus"></i> Agregar</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-calendar"></i> <span class="nav-label">Calendario</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="{%url 'calendario' 'locales'%}">Locales</a>
+                            </li>
+                            <li>
+                                <a href="{%url 'calendario' 'foraneas'%}">Foraneos</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-book"></i> <span class="nav-label">Manuales</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="{%url 'manual_usuarios'%}">De usuario</a>
+                            </li>
+                            <li>
+                                <a href="{%url 'manual_iconfield'%}">Icon Field</a>
+                            </li>
+                        </ul>
+                    </li>
+                    {% if request.user.is_superuser or request.user.perfil == 'Administrador' %}
+                    <li>
+                        <a href="{%url 'publicidad'%}"><i class="fa fa-picture-o"></i> <span class="nav-label">Publicidad</span></a>
+                    </li>
+                    {%endif%}
+                    {% if request.user.is_superuser or request.user.perfil == 'Administrador' %}
+                    <li>
+                        <a href="#"><i class="fa fa-bar-chart"></i> <span class="nav-label">Reportes</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="{%url 'lista_cortes'%}">Cortes</a>
+                            </li>
+                            <li>
+                                <a href="{%url 'reportes'%}">Reportes</a>
+                            </li>
+                        </ul>
+                    </li>
+                    {%endif%}
+                    {% if request.user.is_superuser or request.user.perfil == 'Administrador' %}
+                    <li>
+                        <a href="/admin/"><i class="fa fa-key"></i> <span class="nav-label">Administrador</span></a>
+                    </li>
+                    {%endif%}
+                </ul>
+            </div>
+        </nav>
+        <div id="page-wrapper" class="gray-bg">
+            <div class="row border-bottom">
+                <nav class="navbar navbar-static-top  " role="navigation" style="margin-bottom: 0">
+                    <div class="navbar-header">
+                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+                    </div>
+                    <ul class="nav navbar-top-links navbar-right">
+                        <li>
+                            <a href="{%url 'mi_password'%}">
+                                <i class="fa fa-key"></i> Mi password
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{%url 'salir'%}">
+                                <i class="fa fa-sign-out"></i> Salir
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
+            <div class="wrapper wrapper-content">
+                {% for message in messages %}
+                    <div class="alert alert-{% if message.tags %}{{ message.tags }}{% endif %} alert-dismissable " >
+                        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                        {{ message }}
+                    </div>
+                {% endfor %}
+                {%block content%}
+                    <div class="middle-box text-center animated fadeInRightBig">
+
+                        <h3 class="font-bold">Bienvenido {{request.user.username}}</h3>
+                    </div>
+                 {%endblock%}
+            </div>
+
+            <div class="footer">
+                <div class="pull-right">
+                    - <strong>zaresdelweb</strong> -
+                </div>
+                <div>
+                    <strong>by</strong> zaresdelweb &copy; 2015
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="container">
+    <!-- Mainly scripts -->
+    <script src="{{STATIC_URL}}inspinia/js/plugins/fullcalendar/moment.min.js"></script>
+    <script src="{{STATIC_URL}}inspinia/js/jquery-2.1.1.js"></script>
+    <script src="{{STATIC_URL}}inspinia/js/bootstrap.min.js"></script>
+    <script src="{{STATIC_URL}}inspinia/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="{{STATIC_URL}}inspinia/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
-      {% if messages %}
-          {% for message in messages %}
-              <div class="alert {% if message.tags %}alert-{{ message.tags }}"{% endif %}>{{ message }}</div>
-          {% endfor %}
-      {% endif %}
+    <!-- Custom and plugin javascript -->
+    <script src="{{STATIC_URL}}inspinia/js/inspinia.js"></script>
+    <script src="{{STATIC_URL}}inspinia/js/plugins/pace/pace.min.js"></script>
 
-      {% block content %}
-        <p>Use this document as a way to quick start any new project.</p>
-      {% endblock content %}
+    {%block js%}
+    {%endblock%}
 
-    </div> <!-- /container -->
+    {%block scripts%}
+    {%endblock%}
 
-    {% block modal %}{% endblock modal %}
 
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    {% block javascript %}
-      <!-- Latest JQuery -->
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+</body>
 
-      <!-- Latest compiled and minified JavaScript -->
-      <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-
-      <!-- Your stuff: Third-party javascript libraries go here -->
-
-      <!-- place project specific Javascript in this file -->
-      <script src="{% static 'js/project.js' %}"></script>
-    {% endblock javascript %}
-  </body>
 </html>
- 

@@ -1,0 +1,102 @@
+                   
+/* Custom Font */@font-face{font-family:"Avenir LT W01 85 Heavy";src:url("http://www.stampready.net/themeforest/dashboard/templates/unix/font/f61bf0f6-c193-4100-b940-12a1a01dcee5.eot?#iefix");src:url("http://www.stampready.net/themeforest/dashboard/templates/unix/font/f61bf0f6-c193-4100-b940-12a1a01dcee5.eot?#iefix") format("eot"),url("http://www.stampready.net/themeforest/dashboard/templates/unix/font/7147ec3a-8ff8-4ec9-8c5c-bd1571dc6ae6.woff") format("woff"),url("http://www.stampready.net/themeforest/dashboard/templates/unix/font/d1dc54b2-878d-4693-8d6e-b442e99fef68.ttf") format("truetype"),url("http://www.stampready.net/themeforest/dashboard/templates/unix/font/731dd4d3-64da-427d-ba61-01575b3cf3f7.svg#731dd4d3-64da-427d-ba61-01575b3cf3f7") format("svg");}@font-face{font-family:"Avenir LT W01 35 Light";src:url("http://www.stampready.net/themeforest/dashboard/templates/unix/font/3511a780-31ca-4ee1-9083-89b1b7185748.eot?#iefix");src:url("http://www.stampready.net/themeforest/dashboard/templates/unix/font/3511a780-31ca-4ee1-9083-89b1b7185748.eot?#iefix") format("eot"),url("http://www.stampready.net/themeforest/dashboard/templates/unix/font/c4352a95-7a41-48c1-83ce-d8ffd2a3b118.woff") format("woff"),url("http://www.stampready.net/themeforest/dashboard/templates/unix/font/3e419b5b-c789-488d-84cf-a64009cc308e.ttf") format("truetype"),url("http://www.stampready.net/themeforest/dashboard/templates/unix/font/ca038835-1be3-4dc5-ba25-be1df6121499.svg#ca038835-1be3-4dc5-ba25-be1df6121499") format("svg");}@font-face{font-family:"Avenir LT W01 55 Roman";src:url("http://www.stampready.net/themeforest/dashboard/templates/unix/font/2f5a6074-badc-4e08-83f1-ed67fe5c3d7c.eot?#iefix");src:url("http://www.stampready.net/themeforest/dashboard/templates/unix/font/2f5a6074-badc-4e08-83f1-ed67fe5c3d7c.eot?#iefix") format("eot"),url("http://www.stampready.net/themeforest/dashboard/templates/unix/font/b9ebb19d-88c1-4cbd-9baf-cf51972422ec.woff") format("woff"),url("http://www.stampready.net/themeforest/dashboard/templates/unix/font/5ed4f98e-9044-4810-88ff-74d412c1351f.ttf") format("truetype"),url("http://www.stampready.net/themeforest/dashboard/templates/unix/font/4cb16859-16ca-4342-b89c-292dc83266af.svg#4cb16859-16ca-4342-b89c-292dc83266af") format("svg");}           /* Reset */* { margin-top: 0px; margin-bottom: 0px; padding: 0px; border: none; line-height: normal; outline: none; list-style: none; -webkit-text-size-adjust: none; -ms-text-size-adjust: none; }table { border-collapse: collapse !important; padding: 0px !important; border: none !important; border-bottom-width: 0px !important; mso-table-lspace: 0pt; mso-table-rspace: 0pt; }table td { border-collapse: collapse; }body { margin: 0px; padding: 0px; background-color: #FFFFFF; }.ExternalClass * { line-height: 100%; }/* Responsive */@media only screen and (max-width:600px) {   /* Tables   parameters: width, alignment, padding */        table[class=scale] { width: 100%!important; }   table[class=scale-reset] { width: 100%!important; height: auto!important; }     /* Td */    td[class=scale-left] { width: 100%!important; text-align: left!important;}  td[class=scale-left-bottom] { width: 100%!important; text-align: left!important; padding-bottom: 25px!important; }  td[class=scale-left-top] { width: 100%!important; text-align: left!important; padding-top: 25px!important; }    td[class=scale-left-all] { width: 100%!important; text-align: left!important; padding-top: 25px!important; padding-bottom: 25px!important; }    td[class=scale-center] { width: 100%!important; text-align: center!important;}  td[class=scale-center-both] { width: 100%!important; text-align: center!important; padding-left: 20px!important; padding-right: 20px!important; }   td[class=scale-center-both-top] { width: 100%!important; text-align: center!important; padding-left: 20px!important; padding-right: 20px!important; padding-top: 25px!important; }  td[class=scale-center-bottom] { width: 100%!important; text-align: center!important; padding-bottom: 25px!important; }  td[class=scale-center-top] { width: 100%!important; text-align: center!important; padding-top: 25px!important; }    td[class=scale-center-all] { width: 100%!important; text-align: center!important; padding-top: 25px!important; padding-bottom: 25px!important; padding-left: 20px!important; padding-right: 20px!important; }   td[class=scale-center-extraall] { width: 100%!important; text-align: center!important; padding-top: 54px!important; padding-bottom: 25px!important; }   td[class=scale-right] { width: 100%!important; text-align: right!important;}    td[class=scale-right-bottom] { width: 100%!important; text-align: right!important; padding-bottom: 25px!important; }    td[class=scale-right-top] { width: 100%!important; text-align: right!important; padding-top: 25px!important; }  td[class=scale-right-all] { width: 100%!important; text-align: right!important; padding-top: 25px!important; padding-bottom: 25px!important; }  td[class=scale-center-extratop] { width: 100%!important; text-align: center!important; padding-top: 60px!important; }   td[class=reset] { height: 0px!important; }  p[class=reset] { margin-left: 0px!important; margin-right: 0px!important; } p[class=reset-top] { margin-top: 0px!important; }   img[class="reset"] { display: inline!important; }   }
+
+                            
+
+    
+        
+            
+                
+                
+                    
+                        
+                            
+                                
+                                    
+                                        
+                                            
+                                        
+                                        
+                                            
+                                                Alerta!!
+                                                {{tecnico}}, la orden con folio: {{folio}} necesita atención prioritaria o contacta un administrador para concluir la orden. 
+                                                
+                                                
+                                                Puedes consultar los datos de la orden dando click al siguiente enlace:
+                                                
+                                                
+                                                {{dominio}}{{link}}
+                                                
+                                                
+                                                
+                                            
+                                        
+                                        
+                                            
+                                        
+                                    
+                                
+                            
+                        
+                    
+                
+            
+        
+    
+
+
+
+    
+        
+            
+                
+                    
+                        
+                            
+                        
+                        
+                            
+                                
+                                    
+                                        
+                                            
+                                             SistemaTecno / Notificaciones
+                                            
+                                        
+                                    
+                                
+                                
+                                    
+                                        
+                                            
+                                                
+                                                    &nbsp;&nbsp;&nbsp;
+                                                    
+                                                
+                                            
+                                        
+                                    
+                                
+                            
+                        
+                    
+                
+                
+                    
+                        
+                            
+                        
+                        
+                            No respondas este correo electrónico, Los correos electrónicos enviados a esta dirección no se responderán.
+                        
+                        
+                            Sistema desarrollado por zaresdelweb.com
+                        
+                        
+                            
+                        
+                    
+                
+            
+        
+    

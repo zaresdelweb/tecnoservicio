@@ -1,0 +1,102 @@
+{%extends "base.html"%}
+{% load crispy_forms_tags %}
+
+{%block styles%}
+    <link href="{{STATIC_URL}}inspinia/css/plugins/fullcalendar/fullcalendar.css" rel="stylesheet">
+    <link href="{{STATIC_URL}}inspinia/css/plugins/fullcalendar/fullcalendar.print.css" rel='stylesheet' media='print'>
+    <style>
+        .fc-time{
+           display : none;
+        }
+    </style>
+{%endblock%}
+
+{%block content%}
+    
+    <div class="ibox-content" style="margin-bottom: 35px;">
+        <div id="calendar"></div>
+    </div>
+
+
+{%endblock%}
+
+{%block js%}
+<!-- Full Calendar -->
+<script src="{{STATIC_URL}}inspinia/js/plugins/fullcalendar/fullcalendar.min.js"></script>
+<script src="{{STATIC_URL}}inspinia/js/plugins/fullcalendar/lang/es.js"></script>
+
+{%endblock%}
+
+{%block scripts%}
+    <!-- Page-Level Scripts -->
+    <script>
+        $(document).ready(function() {
+
+            var date = new Date();
+            var d = date.getDate();
+            var m = date.getMonth();
+            var y = date.getFullYear();
+
+            $('#calendar').fullCalendar({
+                lang: 'es',
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: ''
+                },
+                editable: false,
+                droppable: false, // this allows things to be dropped onto the calendar
+                events: [
+                    {%for orden in ordenes%}
+                    {
+                        title: '{{orden.folio}} {{orden.servicio}}',
+                        start: new Date({{orden.fecha_programada.year}}, {{orden.fecha_programada.month}}-1, {{orden.fecha_programada.day}}),
+                        url: '{%url "editar_orden" orden.folio%}',
+                        color: '{{orden.color}}'
+                    },
+                    {%endfor%}
+                ],
+            });
+            $('body').on('click', 'button.fc-prev-button', function() {
+                calendario_ordenes()
+            });
+            $('body').on('click', 'button.fc-next-button', function() {
+                calendario_ordenes()
+            });
+            function calendario_ordenes() {
+                var b = $('#calendar').fullCalendar('getDate');
+                var data = {
+                    'fecha': b.format('L'),
+                    'tipo': '{{tipo}}',
+                };
+                $.ajax({
+                    url : "{%url 'calendario_ordenes'%}", 
+                    type : "POST", 
+                    data : data, 
+                    success : function(json) {
+                        $('#calendar').fullCalendar( 'removeEvents', function(event) {
+                            return true;
+                        });
+                        console.log(json)
+                        $.each(json, function(i,el){
+                            fecha = el.fecha_programada.split("-")
+                            link = '{%url "editar_orden" None%}'.replace("None", el.folio.toString());
+                            var newEvent = {
+                                title: el.folio.toString(),
+                                start: new Date(fecha[0], parseInt(fecha[1])-1, fecha[2]),
+                                color: el.color,
+                                url: link
+                            };
+                            $('#calendar').fullCalendar( 'renderEvent', newEvent , 'stick');
+                        });
+                    },
+                    error : function(xhr,errmsg,err) {
+                        alert('Ocurrio un error')
+                        console.log(xhr.status + ": " + xhr.responseText); 
+                    }
+                });
+            };
+
+        });
+    </script>
+{%endblock%}

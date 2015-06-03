@@ -1,0 +1,147 @@
+{%extends "base.html"%}
+{% load crispy_forms_tags %}
+
+{%block styles%}
+    
+{%endblock%}
+
+{%block content%}
+    
+    <div class="ibox-content forum-container">
+        <form action="{%url 'lista_orden'%}" method="post">{% csrf_token %}
+            <div class="m-b-lg">
+                <div class="input-group">
+                    <input type="text" placeholder="Buscar orden de servicio..." class=" form-control" name="buscar">
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-success"> Buscar</button>
+                    </span>
+                </div>
+            </div>
+        </form>
+        <div class="forum-title">
+            <div class="pull-left forum-desc">
+                {%if request.method == 'POST'%}
+                    <strong>Ordenes de tu busqueda: {{ordenes|length}}</strong>
+                {%else%}
+                    <strong>Ordenes mostradas: {{ordenes|length}}</strong>
+                {%endif%}
+            </div>
+        </div>
+        <br />
+        <br />
+        <div class="btn-group">
+            {% if ordenes.has_previous %}
+            <a href="?page={{ ordenes.previous_page_number }}" class="btn btn-white">Anterior</a>
+            {% endif %}
+            {%for num in ordenes.paginator.page_range%}
+            <a class="btn btn-white {%if num == ordenes.number%}active{%endif%}" href="?page={{num}}"> {{num}} </a>
+            {%endfor%}
+            {% if ordenes.has_next %}
+            <a  href="?page={{ ordenes.next_page_number }}" class="btn btn-white">Siguiente</a>
+            {% endif %}
+        </div>
+        <hr />
+        {%for orden in ordenes%}
+            <div class="forum-item">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="forum-icon">
+                            <i class="fa fa-circle" style="color:{{orden.color}}"></i>
+                        </div>
+                        <a href="{%url 'editar_orden' orden.folio%}" class="forum-item-title">{{orden.folio}} <small>({{orden.servicio}})</small></a>
+                        <div class="forum-sub-title">{{orden.fecha_alta}}</div>
+                        <div class="forum-sub-title">Asignada a: <strong>{{orden.tecnico}}</strong></div>
+                        <div class="forum-sub-title">Concepto: <strong>{{orden.concepto}}</strong></div>
+                        {%if orden.no_serie%}<div class="forum-sub-title">No de serie: <strong>{{orden.no_serie}}</strong></div>{%endif%}
+                        <br / class="hidden-lg">
+                    </div>
+                    <div class="col-md-3">
+                        <span class="forum-item-title">
+                            Programada: <strong>{{orden.fecha_programada}}</strong><br />
+                        </span>
+                        <span class="forum-item-title">
+                            Cliente: <strong>{{orden.cliente}}</strong><br />
+                        </span>
+                        {%if orden.telefono_casa%}<span class="forum-item-title">
+                            Tel: <strong>{{orden.telefono_casa}}</strong><br />
+                        </span>
+                        {%endif%}
+                        {%if orden.telefono_casa%}<span class="forum-item-title">
+                            Tel: <strong>{{orden.telefono_casa}}</strong><br />
+                        </span>
+                        {%endif%}
+                        {%if orden.telefono_casa%}<span class="forum-item-title">
+                            Tel: <strong>{{orden.telefono_casa}}</strong>
+                        </span>
+                        {%endif%}
+                    </div>
+                    <div class="col-md-3">
+                        <span class="forum-item-title">
+                            <strong>Modificaciones:</strong> #{{orden.modificaciones.0}}<br />
+                        </span>
+                        <span class="forum-item-title">
+                            Ultimo: {{orden.modificaciones.1}}<br />
+                        </span>
+                        <span class="forum-item-title">
+                            Fecha: {{orden.modificaciones.2}}<br />
+                        </span>
+                        <span class="forum-item-title">
+                            <strong>Técnicos:</strong> {{orden.modificaciones.3|length}}<br />
+                        </span>
+                    </div>
+                    <div class="col-md-3">
+                        {%if orden.icon_os%}<span class="forum-item-title">
+                            os: <strong>{{orden.icon_os}}</strong><br />
+                        </span>
+                        {%endif%}
+                        {%if orden.icon_ics%}<span class="forum-item-title">
+                            ics: <strong>{{orden.icon_ics}}</strong><br />
+                        </span>
+                        {%endif%}
+                        {%if orden.icon_on%}<span class="forum-item-title">
+                            on: <strong>{{orden.icon_on}}</strong><br />
+                        </span>
+                        {%endif%}
+                        {%if orden.icon_cn%}<span class="forum-item-title">
+                            cn: <strong>{{orden.icon_cn}}</strong>
+                        </span>
+                        {%endif%}
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <h3>No hay ordenes disponibles</h3>
+        {%endfor%}
+
+        <div class="btn-group">
+            {% if ordenes.has_previous %}
+            <a href="?page={{ ordenes.previous_page_number }}" class="btn btn-white">Anterior</a>
+            {% endif %}
+            {%for num in ordenes.paginator.page_range%}
+            <a class="btn btn-white {%if num == ordenes.number%}active{%endif%}" href="?page={{num}}"> {{num}} </a>
+            {%endfor%}
+            {% if ordenes.has_next %}
+            <a  href="?page={{ ordenes.next_page_number }}" class="btn btn-white">Siguiente</a>
+            {% endif %}
+        </div>
+        
+    </div>
+
+
+{%endblock%}
+
+{%block js%}
+
+{%endblock%}
+
+{%block scripts%}
+    <!-- Page-Level Scripts -->
+    <script>
+        $(document).ready(function() {
+            
+
+
+
+        });
+    </script>
+{%endblock%}

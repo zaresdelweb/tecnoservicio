@@ -1,0 +1,490 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Imprimir Orden</title>
+
+    <link href="{{STATIC_URL}}inspinia/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{STATIC_URL}}inspinia/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="{{STATIC_URL}}inspinia/css/animate.css" rel="stylesheet">
+    <link href="{{STATIC_URL}}inspinia/css/style.css" rel="stylesheet">
+
+</head>
+<style media="print" type="text/css">
+    .noimprime
+    {
+        display: none;
+    }
+    @page{margin: 0;}
+    hr {
+        margin-top: 0px;
+        margin-bottom: 0px;
+        border: 0;
+        border-top: 1px solid #eee;
+    }
+    .ibox-content {
+        background-color: #ffffff;
+        color: inherit;
+        padding: 0px 0px 0px 00px;
+        border-color: #e7eaec;
+        border-image: none;
+        border-style: solid solid none;
+        border-width: 0px 0px;
+    }
+</style>
+<body class="white-bg">
+    <div class="wrapper wrapper-content">
+        <div class="ibox-content">
+            <div class="row">
+                <div class="col-xs-4 text-center">
+                    <img src="{{STATIC_URL}}images/tecnoservicio_ordenes.png">
+                </div>
+                <div class="col-xs-4 text-center">
+                    <img src="{{STATIC_URL}}images/icon_ordenes.png"><br />
+                    www.caminadorasygimnasios.com<br />
+                    servicio@caminadorasygimnasios.com<br />
+                    Tel. 5513-4050 * 5601-4868
+                </div>
+                <div class="col-xs-4 text-right">
+                    <h4>{{hoy.date}}</h4>
+                    <h4 class="text-navy">{{orden.folio}}</h4>
+                    <h4>{{orden.servicio}}</h4>
+                    <h4>{{orden.total|floatformat:2|intcomma}} $</h4>
+                    <p>
+                        <span><strong>Operador:</strong> {{orden.operador}}</span><br/>
+                        <span><strong>Tecnico:</strong> {{orden.tecnico}}</span>
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4">
+                    <label class="col-sm-12 control-label" style="text-align: left;">
+                        <small class="">Cliente:</small>
+                    </label>
+                    <br />
+                    <div class="col-sm-12">
+                        {%if orden.cliente%}{{orden.cliente}}{%else%}-{%endif%}
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <label class="col-sm-12 control-label" style="text-align: left;">
+                        <small class="">Email:</small>
+                    </label>
+                    <br />
+                    <div class="col-sm-12">
+                        {%if orden.email%}{{orden.email}}{%else%}-{%endif%}
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <label class="col-sm-12 control-label" style="text-align: left;">
+                        <small class="">Telefonos:</small>
+                    </label>
+                    <br />
+                    <div class="col-sm-12">
+                        {%if orden.telefono_casa%}{{orden.telefono_casa}}<br/>{%endif%}
+                        {%if orden.telefono_oficina%}{{orden.telefono_oficina}}<br/>{%endif%}
+                        {%if orden.telefono_movil%}{{orden.telefono_movil}}<br/>{%endif%}
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-xs-3">
+                    <label class="col-sm-12 control-label" style="text-align: left;">
+                        <small class="">Direccion:</small>
+                    </label>
+                    <br />
+                    <div class="col-sm-12">
+                        {%if orden.direccion%}{{orden.direccion}}{%else%}-{%endif%}
+                    </div>
+                </div>
+                <div class="col-xs-3">
+                    <label class="col-sm-12 control-label" style="text-align: left;">
+                        <small class="">Colonia:</small>
+                    </label>
+                    <br />
+                    <div class="col-sm-12">
+                        {%if orden.colonia%}{{orden.colonia}}{%else%}-{%endif%}
+                    </div>
+                </div>
+                <div class="col-xs-3">
+                    <label class="col-sm-12 control-label" style="text-align: left;">
+                        <small class="">Municipio/Delegación:</small>
+                    </label>
+                    <br />
+                    <div class="col-sm-12">
+                        {%if orden.municipio_delegacion%}{{orden.municipio_delegacion}}{%else%}-{%endif%}
+                    </div>
+                </div>
+                <div class="col-xs-3">
+                    <label class="col-sm-12 control-label" style="text-align: left;">
+                        <small class="">Colonia:</small>
+                    </label>
+                    <br />
+                    <div class="col-sm-12">
+                        {%if orden.colonia%}{{orden.colonia}}{%else%}-{%endif%}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3">
+                    <label class="col-sm-12 control-label" style="text-align: left;">
+                        <small class="">Codigo postal:</small>
+                    </label>
+                    <br />
+                    <div class="col-sm-12">
+                        {%if orden.codigo_postal%}{{orden.codigo_postal}}{%else%}-{%endif%}
+                    </div>
+                </div>
+                <div class="col-xs-3">
+                    <label class="col-sm-12 control-label" style="text-align: left;">
+                        <small class="">Entre calles:</small>
+                    </label>
+                    <br />
+                    <div class="col-sm-12">
+                        {{orden.entre}} {%if orden.y_entre%} y {{orden.y_entre}} {%endif%}
+                    </div>
+                </div>
+                <div class="col-xs-3">
+                    <label class="col-sm-12 control-label" style="text-align: left;">
+                        <small class="">Fecha compra:</small>
+                    </label>
+                    <br />
+                    <div class="col-sm-12">
+                        {%if orden.fecha_compra%}{{orden.fecha_compra}}{%else%}-{%endif%}
+                    </div>
+                </div>
+                <div class="col-xs-3">
+                    <label class="col-sm-12 control-label" style="text-align: left;">
+                        <small class="">Fecha entrega:</small>
+                    </label>
+                    <br />
+                    <div class="col-sm-12">
+                        {%if orden.fecha_entrega%}{{orden.fecha_entrega}}{%else%}-{%endif%}
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-xs-4">
+                    <label class="col-sm-12 control-label" style="text-align: left;">
+                        <small class="">Tienda:</small>
+                    </label>
+                    <br />
+                    <div class="col-sm-12">
+                        {%if orden.tienda%}{{orden.tienda}}{%else%}-{%endif%}
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <label class="col-sm-12 control-label" style="text-align: left;">
+                        <small class="">Marca:</small>
+                    </label>
+                    <br />
+                    <div class="col-sm-12">
+                        {%if orden.marca%} {{orden.marca}} {%endif%}
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <label class="col-sm-12 control-label" style="text-align: left;">
+                        <small class="">Modelo:</small>
+                    </label>
+                    <br />
+                    <div class="col-sm-12">
+                        {%if orden.modelo%}{{orden.modelo}}{%else%}-{%endif%}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4">
+                    <label class="col-sm-12 control-label" style="text-align: left;">
+                        <small class="">No de serie:</small>
+                    </label>
+                    <br />
+                    <div class="col-sm-12">
+                        {%if orden.tienda%}{{orden.tienda}}{%else%}-{%endif%}
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <label class="col-sm-12 control-label" style="text-align: left;">
+                        <small class="">Reporta:</small>
+                    </label>
+                    <br />
+                    <div class="col-sm-12">
+                        {%if orden.reporta%}{{orden.reporta}}{%else%}-{%endif%}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4">
+                    <label class="col-sm-12 control-label" style="text-align: left;">
+                        <small class="">Tecnico:</small>
+                    </label>
+                    <br />
+                    <div class="col-sm-12">
+                        <br />
+                        {{orden.tecnico}}
+                        <br />
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <label class="col-sm-12 control-label" style="text-align: left;">
+                        <small class="">Firma:</small>
+                    </label>
+                    <br />
+                    <div class="col-sm-12">
+                        
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <label class="col-sm-12 control-label" style="text-align: left;">
+                        <small class="">Fecha:</small>
+                    </label>
+                    <br />
+                    <div class="col-sm-12">
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="text-align: center;">
+                {%if publicidad.0.ordenes%}
+                    <img src="{{MEDIA_URL}}{{publicidad.0.ordenes}}">
+                {%endif%}
+            </div>
+            </table>
+            <hr style="margin-top: 8px; margin-bottom: 8px; border: 1px; border-top: 2px solid #eee;" />
+            <div class="row">
+                <div class="col-xs-4 text-center">
+                    <img src="{{STATIC_URL}}images/tecnoservicio_ordenes.png">
+                </div>
+                <div class="col-xs-4 text-center">
+                    <img src="{{STATIC_URL}}images/icon_ordenes.png"><br />
+                    www.caminadorasygimnasios.com<br />
+                    servicio@caminadorasygimnasios.com<br />
+                    Tel. 5513-4050 * 5601-4868
+                </div>
+                <div class="col-xs-4 text-right">
+                    <h4>{{hoy.date}}</h4>
+                    <h4 class="text-navy">{{orden.folio}}</h4>
+                    <h4>{{orden.servicio}}</h4>
+                    <p>
+                        <span><strong>Operador:</strong> {{orden.operador}}</span><br/>
+                        <span><strong>Tecnico:</strong> {{orden.tecnico}}</span>
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4">
+                    <label class="col-sm-12 control-label" style="text-align: left;">
+                        <small class="">Cliente:</small>
+                    </label>
+                    <br />
+                    <div class="col-sm-12">
+                        {%if orden.cliente%}{{orden.cliente}}{%else%}-{%endif%}
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <label class="col-sm-12 control-label" style="text-align: left;">
+                        <small class="">Email:</small>
+                    </label>
+                    <br />
+                    <div class="col-sm-12">
+                        {%if orden.email%}{{orden.email}}{%else%}-{%endif%}
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <label class="col-sm-12 control-label" style="text-align: left;">
+                        <small class="">Telefonos:</small>
+                    </label>
+                    <br />
+                    <div class="col-sm-12">
+                        {%if orden.telefono_casa%}{{orden.telefono_casa}}<br/>{%endif%}
+                        {%if orden.telefono_oficina%}{{orden.telefono_oficina}}<br/>{%endif%}
+                        {%if orden.telefono_movil%}{{orden.telefono_movil}}<br/>{%endif%}
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-xs-3">
+                    <label class="col-sm-12 control-label" style="text-align: left;">
+                        <small class="">Direccion:</small>
+                    </label>
+                    <br />
+                    <div class="col-sm-12">
+                        {%if orden.direccion%}{{orden.direccion}}{%else%}-{%endif%}
+                    </div>
+                </div>
+                <div class="col-xs-3">
+                    <label class="col-sm-12 control-label" style="text-align: left;">
+                        <small class="">Colonia:</small>
+                    </label>
+                    <br />
+                    <div class="col-sm-12">
+                        {%if orden.colonia%}{{orden.colonia}}{%else%}-{%endif%}
+                    </div>
+                </div>
+                <div class="col-xs-3">
+                    <label class="col-sm-12 control-label" style="text-align: left;">
+                        <small class="">Municipio/Delegación:</small>
+                    </label>
+                    <br />
+                    <div class="col-sm-12">
+                        {%if orden.municipio_delegacion%}{{orden.municipio_delegacion}}{%else%}-{%endif%}
+                    </div>
+                </div>
+                <div class="col-xs-3">
+                    <label class="col-sm-12 control-label" style="text-align: left;">
+                        <small class="">Colonia:</small>
+                    </label>
+                    <br />
+                    <div class="col-sm-12">
+                        {%if orden.colonia%}{{orden.colonia}}{%else%}-{%endif%}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3">
+                    <label class="col-sm-12 control-label" style="text-align: left;">
+                        <small class="">Codigo postal:</small>
+                    </label>
+                    <br />
+                    <div class="col-sm-12">
+                        {%if orden.codigo_postal%}{{orden.codigo_postal}}{%else%}-{%endif%}
+                    </div>
+                </div>
+                <div class="col-xs-3">
+                    <label class="col-sm-12 control-label" style="text-align: left;">
+                        <small class="">Entre calles:</small>
+                    </label>
+                    <br />
+                    <div class="col-sm-12">
+                        {{orden.entre}} {%if orden.y_entre%} y {{orden.y_entre}} {%endif%}
+                    </div>
+                </div>
+                <div class="col-xs-3">
+                    <label class="col-sm-12 control-label" style="text-align: left;">
+                        <small class="">Fecha compra:</small>
+                    </label>
+                    <br />
+                    <div class="col-sm-12">
+                        {%if orden.fecha_compra%}{{orden.fecha_compra}}{%else%}-{%endif%}
+                    </div>
+                </div>
+                <div class="col-xs-3">
+                    <label class="col-sm-12 control-label" style="text-align: left;">
+                        <small class="">Fecha entrega:</small>
+                    </label>
+                    <br />
+                    <div class="col-sm-12">
+                        {%if orden.fecha_entrega%}{{orden.fecha_entrega}}{%else%}-{%endif%}
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-xs-4">
+                    <label class="col-sm-12 control-label" style="text-align: left;">
+                        <small class="">Tienda:</small>
+                    </label>
+                    <br />
+                    <div class="col-sm-12">
+                        {%if orden.tienda%}{{orden.tienda}}{%else%}-{%endif%}
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <label class="col-sm-12 control-label" style="text-align: left;">
+                        <small class="">Marca:</small>
+                    </label>
+                    <br />
+                    <div class="col-sm-12">
+                        {%if orden.marca%} {{orden.marca}} {%endif%}
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <label class="col-sm-12 control-label" style="text-align: left;">
+                        <small class="">Modelo:</small>
+                    </label>
+                    <br />
+                    <div class="col-sm-12">
+                        {%if orden.modelo%}{{orden.modelo}}{%else%}-{%endif%}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4">
+                    <label class="col-sm-12 control-label" style="text-align: left;">
+                        <small class="">No de serie:</small>
+                    </label>
+                    <br />
+                    <div class="col-sm-12">
+                        {%if orden.tienda%}{{orden.tienda}}{%else%}-{%endif%}
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <label class="col-sm-12 control-label" style="text-align: left;">
+                        <small class="">Reporta:</small>
+                    </label>
+                    <br />
+                    <div class="col-sm-12">
+                        {%if orden.reporta%}{{orden.reporta}}{%else%}-{%endif%}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4">
+                    <label class="col-sm-12 control-label" style="text-align: left;">
+                        <small class="">Tecnico:</small>
+                    </label>
+                    <br />
+                    <div class="col-sm-12">
+                        <br />
+                        {{orden.tecnico}}
+                        <br />
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <label class="col-sm-12 control-label" style="text-align: left;">
+                        <small class="">Firma:</small>
+                    </label>
+                    <br />
+                    <div class="col-sm-12">
+                        
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <label class="col-sm-12 control-label" style="text-align: left;">
+                        <small class="">Fecha:</small>
+                    </label>
+                    <br />
+                    <div class="col-sm-12">
+                        
+                    </div>
+                </div>
+            </div>
+            </table>
+        </div>
+
+    </div>
+
+    <!-- Mainly scripts -->
+    <script src="{{STATIC_URL}}inspinia/js/jquery-2.1.1.js"></script>
+    <script src="{{STATIC_URL}}inspinia/js/bootstrap.min.js"></script>
+    <script src="{{STATIC_URL}}inspinia/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="{{STATIC_URL}}inspinia/js/inspinia.js"></script>
+
+    <script type="text/javascript">
+        window.print();
+        setTimeout("window.history.back()", 300);
+    </script>
+
+</body>
+
+</html>

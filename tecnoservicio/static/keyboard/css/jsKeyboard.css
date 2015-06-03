@@ -1,0 +1,88 @@
+
+body {margin:0px 0px; padding:0px; /* Need to set body margin and padding to get consistency between browsers. */
+     /* text-align:center; /* Hack for IE5/Win */
+font-size:14px; font-family:Arial Unicode MS;font-weight:normal;
+overflow:hidden;
+}
+
+#virtualKeyboard {
+    width: 100%;
+    text-align: center;
+    /*background-color:#7b8490;*/
+    /*border-top:3px solid #000;*/
+}
+
+#keyboard{
+    padding:10px;
+    width:650px;
+    margin: 0 auto;
+    height:288;
+    display:block;
+    padding-left:35px;
+    display:block;
+/*    position:absolute;*/
+    bottom:0px; left:0px;
+ }
+#keyboard:after {content: ".";display: block;height: 0;clear: both;visibility: hidden;}
+
+#keyboardHeader {position:relative;}
+#keyboardHeader div {color:#fff; background-color:#7b8490;padding:3px; padding-left:15px; padding-right:15px; position:absolute; cursor:pointer; right:-10px; top:-40px;}
+.closex {font-weight:bolder; color:#000;}
+
+#keyboardCapitalLetter {display:none;}
+#keyboardSmallLetter {display:block;}
+#keyboardNumber {display:none;}
+#keyboardSymbols {display:none;}
+
+.button
+{
+    width:40px; height:40px;
+    background-color:#fff;
+    position:relative;
+    float:left;
+    margin-right:9px;
+    margin-top:10px;
+    cursor:pointer;
+    font-size:20px;
+    border: 1px;
+    border-color: #1da282;
+
+    /*box shadow*/
+    -webkit-box-shadow: 0px 1px 1px #1da282;-moz-box-shadow: 0px 1px 1px #1da282;box-shadow: 0px 1px 1px #1da282;
+    /*box radius*/
+    -moz-border-radius: 5px;border-radius: 5px;
+}
+.buttonDown {background:none;background-color: #c9cdd5; -webkit-box-shadow:none;-moz-box-shadow: none;box-shadow: none;}
+.button_a {margin-left:26px;}
+.button_dash {margin-left:26px;}
+.button_underscore {margin-left:26px;}
+.button_enter {width:70px; font-size:16px; }
+.button_del{width:103px; font-size:16px;}
+.button_smallletter{font-size:16px;}
+.button_capitalletterleft{font-size:16px;}
+.button_capitalletterright{ width:129px; font-size:16px;}
+.button_numberleft{width:100px; font-size:16px; margin-left:26px;}
+.button_numberright{width:129px; font-size:16px;}
+.button_space {width:280px; font-size:16px;}
+.button_symbolsleft{width:172px; font-size:16px; margin-left:26px;}
+.button_symbolsright{width:129px; font-size:16px;}
+
+
+.key {width:100%; height:100%; text-align:center; padding-top:4px; text-shadow: 0px 1px 1px #ffffff;filter: dropshadow(color=#ffffff, offx=0, offy=1);}
+.key_del {padding-top:9px;}
+.key_enter {padding-top:9px;}
+.key_smallletter {padding-top:9px;}
+.key_capitalletterleft {padding-top:9px;}
+.key_capitalletterright {padding-top:9px;}
+.key_number {padding-top:9px;}
+.key_symbols {padding-top:9px;}
+.key_space {padding-top:9px;}
+
+.button:hover {
+border-color: rgba(82, 168, 236, 0.8);
+outline: 0;
+outline: thin dotted 9;
+-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),0 0 8px rgba(82, 168, 236, 0.6);
+-moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(82,168,236,0.6);
+box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),0 0 8px rgba(82, 168, 236, 0.6);
+}

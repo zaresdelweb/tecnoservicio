@@ -1,2 +1,79 @@
-{% extends "base.html" %}
-{% block title %}{% block head_title %}{% endblock head_title %}{% endblock title %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block title %}
+        <title>Tecnoservicio</title>
+    {% endblock title %}
+    <link href="{{STATIC_URL}}inspinia/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{STATIC_URL}}inspinia/css/animate.css" rel="stylesheet">
+    <link href="{{STATIC_URL}}inspinia/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="shortcut icon" href="{{STATIC_URL}}images/favicon.png">
+    {% block css %}
+    <style type="text/css" media="screen">
+        .form-control:focus, .single-line:focus {
+          border-color: #1C84C6 !important;
+        }
+        .top-navigation .nav > li a:hover, .top-navigation .nav > li a:focus {
+          background: #fff;
+          color: #1C84C6;
+        }
+        .help-block{
+            font-size: 11px;
+            color: #973033;
+        }
+        li {
+            list-style: none;
+            font-size: 11px;
+        }
+        ul {
+            padding-left: 0px;
+        }
+    </style>
+
+    {% endblock %}
+</head>
+
+<body class="gray-bg top-navigation">
+
+    <div class="row border-bottom white-bg">
+        <nav class="navbar navbar-static-top" role="navigation">
+            
+            
+        </nav>
+    </div>
+
+    <div class="middle-box text-center loginscreen animated fadeInDown" style="width: 100%; max-width: 280px; padding-top: 0px;">
+        <div>
+
+            <div>
+                <h1 class="logo-name" style="margin-top: 60px; margin-bottom: 30px; font-size: 10px;">
+                    <img src="{{STATIC_URL}}images/logo_gray.png" alt="">
+                </h1>
+            </div>
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert {% if message.tags %}alert-{{ message.tags }}"{% endif %}>{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+            
+            {% block content %}
+            {% endblock %}
+            
+        </div>
+    </div>
+
+    <!-- Mainly scripts -->
+    <script src="{{STATIC_URL}}inspinia/js/jquery-2.1.1.js"></script>
+    <script src="{{STATIC_URL}}inspinia/js/bootstrap.min.js"></script>
+    {% block js %}
+    {% endblock %}
+    
+    {% block script %}
+    {% endblock %}
+</body>
+
+</html>

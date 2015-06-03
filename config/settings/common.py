@@ -32,9 +32,10 @@ DJANGO_APPS = (
     'django.contrib.staticfiles',
 
     # Useful template tags:
-    # 'django.contrib.humanize',
+    'django.contrib.humanize',
 
     # Admin
+    'suit',
     'django.contrib.admin',
 )
 THIRD_PARTY_APPS = (
@@ -42,11 +43,15 @@ THIRD_PARTY_APPS = (
     'allauth',  # registration
     'allauth.account',  # registration
     'allauth.socialaccount',  # registration
+    'reversion',
+    'djcelery',
 )
 
 # Apps specific for this project go here.
 LOCAL_APPS = (
     'tecnoservicio.users',  # custom users app
+    'tecnoservicio.ordenes',
+    'tecnoservicio.tareas', 
     # Your stuff: custom apps go here
 )
 
@@ -63,6 +68,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'reversion.middleware.RevisionMiddleware',
 )
 
 # MIGRATIONS CONFIGURATION
@@ -220,13 +226,14 @@ AUTHENTICATION_BACKENDS = (
 
 # Some really nice defaults
 ACCOUNT_AUTHENTICATION_METHOD = 'username'
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_EMAIL_REQUIRED = False
+ACCOUNT_EMAIL_VERIFICATION = 'optional'
+ACCOUNT_SESSION_REMEMBER = False
 
 # Custom user app defaults
 # Select the correct user model
 AUTH_USER_MODEL = 'users.User'
-LOGIN_REDIRECT_URL = 'users:redirect'
+LOGIN_REDIRECT_URL = 'inicio'
 LOGIN_URL = 'account_login'
 
 # SLUGLIFIER
@@ -266,3 +273,5 @@ LOGGING = {
 }
 
 # Your common stuff: Below this line define 3rd party library settings
+DOMINIO = 'http://sistematecno.com'
+CELERY_RESULT_BACKEND='djcelery.backends.database:DatabaseBackend'

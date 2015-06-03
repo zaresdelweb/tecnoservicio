@@ -1,0 +1,772 @@
+{%extends "base.html"%}
+{% load crispy_forms_tags %}
+{% load humanize %}
+
+{%block styles%}
+<link href="{{STATIC_URL}}inspinia/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
+<link href="{{STATIC_URL}}inspinia/css/plugins/chosen/chosen.css" rel="stylesheet">
+<style type="text/css" media="screen">
+.ibox {
+  margin-bottom: 0px;
+  margin-top: 3px;
+}
+.skin-1 .wrapper-content {
+  padding: 7px 15px 30px;
+}
+.error{
+  font-size: 10px;
+  margin-bottom: 0px;
+}
+.input-group-addon {
+  border: 0px solid #E5E6E7;
+}
+.form-group {
+  margin-bottom: -3px;
+} 
+.ibox-content {
+  padding: 0px 20px 15px 20px;
+}
+.chat-discussion {
+  background: #FCF9F9;
+  padding: 0px;
+  height: 350px;
+}
+#page-wrapper {
+  padding: 0 5px;
+}
+
+#columna {
+  padding-right: 1px;
+  padding-left: 3px;
+}
+</style>
+{%endblock%}
+
+{%block content%}
+    <div class="row">
+        <form id="form" method="post" enctype="multipart/form-data" class="form-horizontal">{% csrf_token %}
+            <div class="col-md-9">
+                <div class="row">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-content">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label" style="text-align: left;">
+                                            <small class="">{{form.servicio.label}} </small>
+                                        </label>
+                                        <br />
+                                        <div class="col-sm-12">
+                                            <div class="checkbox">
+                                                {{form.servicio}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label" style="text-align: left;">
+                                            <small class="">{{form.zona.label}}</small>
+                                        </label>
+                                        <br />
+                                        <div class="col-sm-12">
+                                            <div class="checkbox">
+                                                {{form.zona}}
+                                            </div>   
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4" id="fecha_1">
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label" style="text-align: left;">
+                                            <small class="">{{form.fecha_programada.label}}</small>
+                                        </label>
+                                        <br />
+                                        <div class="col-sm-12">
+                                            <div class="input-group date">
+                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                {{form.fecha_programada}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label" style="text-align: left;">
+                                            <small class="">{{form.concepto.label}}</small>
+                                        </label>
+                                        <br />
+                                        <div class="col-sm-12">
+                                            <div class="checkbox">
+                                                {{form.concepto}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label" style="text-align: left;">
+                                            <small class="">{{form.tecnico.label}}</small>
+                                        </label>
+                                        <br />
+                                        <div class="col-sm-12">
+                                            {{form.tecnico}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-content">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label" style="text-align: left;">
+                                            <small class="">{{form.cliente.label}}</small>
+                                        </label>
+                                        <br />
+                                        <div class="input-group col-sm-12">
+                                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                            {{form.cliente}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label" style="text-align: left;">
+                                            <small class="">{{form.email.label}}</small>
+                                        </label>
+                                        <br />
+                                        <div class="input-group col-sm-12">
+                                            <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                            {{form.email}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label" style="text-align: left;">
+                                            <small class="">{{form.telefono_casa.label}}</small>
+                                        </label>
+                                        <br />
+                                        <div class="input-group col-sm-12">
+                                            <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                                            {{form.telefono_casa}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label" style="text-align: left;">
+                                            <small class="">{{form.telefono_oficina.label}}</small>
+                                        </label>
+                                        <br />
+                                        <div class="input-group col-sm-12">
+                                            <span class="input-group-addon"><i class="fa fa-phone-square"></i></span>
+                                            {{form.telefono_oficina}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label" style="text-align: left;">
+                                            <small class="">{{form.telefono_movil.label}}</small>
+                                        </label>
+                                        <br />
+                                        <div class="input-group col-sm-12">
+                                            <span class="input-group-addon"><i class="fa fa-mobile"></i></span>
+                                            {{form.telefono_movil}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label" style="text-align: left;">
+                                            <small class="">{{form.direccion.label}}</small>
+                                        </label>
+                                        <br />
+                                        <div class="input-group col-sm-12">
+                                            <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+                                            {{form.direccion}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label" style="text-align: left;">
+                                            <small class="">{{form.colonia.label}}</small>
+                                        </label>
+                                        <br />
+                                        <div class="input-group col-sm-12">
+                                            <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+                                            {{form.colonia}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label" style="text-align: left;">
+                                            <small class="">{{form.municipio_delegacion.label}}</small>
+                                        </label>
+                                        <br />
+                                        <div class="input-group col-sm-12">
+                                            <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+                                            {{form.municipio_delegacion}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label" style="text-align: left;">
+                                            <small class="">{{form.codigo_postal.label}}</small>
+                                        </label>
+                                        <br />
+                                        <div class="input-group col-sm-12">
+                                            <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+                                            {{form.codigo_postal}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label" style="text-align: left;">
+                                            <small class="">{{form.entre.label}}</small>
+                                        </label>
+                                        <br />
+                                        <div class="input-group col-sm-12">
+                                            <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+                                            {{form.entre}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label" style="text-align: left;">
+                                            <small class="">{{form.y_entre.label}}</small>
+                                        </label>
+                                        <br />
+                                        <div class="input-group col-sm-12">
+                                            <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+                                            {{form.y_entre}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-content">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label" style="text-align: left;">
+                                            <small class="">{{form.reporta.label}}</small>
+                                        </label>
+                                        <br />
+                                        <div class="input-group col-sm-12">
+                                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                            {{form.reporta}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label" style="text-align: left;">
+                                            <small class="">{{form.tienda.label}}</small>
+                                        </label>
+                                        <br />
+                                        <div class="col-sm-12">
+                                            {{form.tienda}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3" id="fecha_2">
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label" style="text-align: left;">
+                                            <small class="">{{form.fecha_compra.label}}</small>
+                                        </label>
+                                        <br />
+                                        <div class="col-sm-12">
+                                            <div class="input-group date">
+                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                {{form.fecha_compra}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <div class="col-md-3" id="fecha_3">
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label" style="text-align: left;">
+                                            <small class="">{{form.fecha_entrega.label}}</small>
+                                        </label>
+                                        <br />
+                                        <div class="col-sm-12">
+                                            <div class="input-group date">
+                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                {{form.fecha_entrega}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label" style="text-align: left;">
+                                            <small class="">{{form.marca.label}}</small>
+                                        </label>
+                                        <br />
+                                        <div class="col-sm-12">
+                                            {{form.marca}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label" style="text-align: left;">
+                                            <small class="">{{form.modelo.label}}</small>
+                                        </label>
+                                        <br />
+                                        <div class="col-sm-12">
+                                            {{form.modelo}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label" style="text-align: left;">
+                                            <small class="">{{form.no_serie.label}}</small>
+                                        </label>
+                                        <br />
+                                        <div class="input-group col-sm-12">
+                                            <span class="input-group-addon"><i class="fa fa-barcode"></i></span>
+                                            {{form.no_serie}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-content">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="col-sm-12 control-label" style="text-align: left;">
+                                                <small class="">{{form.icon_os.label}}</small>
+                                            </label>
+                                            <br />
+                                            <div class="input-group col-sm-12">
+                                                <span class="input-group-addon"><i class="fa fa-cog"></i></span>
+                                                {{form.icon_os}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="col-sm-12 control-label" style="text-align: left;">
+                                                <small class="">{{form.icon_ics.label}}</small>
+                                            </label>
+                                            <br />
+                                            <div class="input-group col-sm-12">
+                                                <span class="input-group-addon"><i class="fa fa-cog"></i></span>
+                                                {{form.icon_ics}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="col-sm-12 control-label" style="text-align: left;">
+                                                <small class="">{{form.icon_on.label}}</small>
+                                            </label>
+                                            <br />
+                                            <div class="input-group col-sm-12">
+                                                <span class="input-group-addon"><i class="fa fa-cog"></i></span>
+                                                {{form.icon_on}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="col-sm-12 control-label" style="text-align: left;">
+                                                <small class="">{{form.icon_cn.label}}</small>
+                                            </label>
+                                            <br />
+                                            <div class="input-group col-sm-12">
+                                                <span class="input-group-addon"><i class="fa fa-cog"></i></span>
+                                                {{form.icon_cn}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="col-sm-12 control-label" style="text-align: left;">
+                                                <small class="">{{form.observaciones.label}}</small>
+                                            </label>
+                                            <br />
+                                            <div class="col-sm-12">
+                                                {{form.observaciones}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="col-sm-12 control-label" style="text-align: left;">
+                                                <small class="">{{form.comentarios.label}}</small>
+                                            </label>
+                                            <br />
+                                            <div class="col-sm-12">
+                                                {{form.comentarios}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6" style="padding-right: 3px; padding-left: 0px;">
+                        <div class="ibox float-e-margins" style="margin-bottom: 25px;!importat">
+                            <div class="ibox-title">
+                                <h5>Historial de la orden</h5>
+                            </div>
+                            <div class="ibox-content no-padding">
+                                <ul class="list-group">
+                                    {%for version in version_list%}
+                                    <li class="list-group-item">
+                                        <p><a class="text-info">{{version.revision.user}}</a> {{version.revision.comment}} </p>
+                                        <small class="block text-muted"><i class="fa fa-clock-o"></i> {{version.revision.date_created}}</small>
+                                    </li>
+                                    {%endfor%}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6" style="padding-right: 0px; padding-left: 3px;">
+                        <div class="ibox float-e-margins" style="margin-bottom: 25px;!importat">
+                            <div class="ibox-title">
+                                <h5>Conceptos</h5>
+                            </div>
+                            <div class="ibox-content no-padding">
+                                <ul class="list-group">
+                                    {%for concepto in conceptos%}
+                                    <li class="list-group-item">
+                                        <p>
+                                            <a class="text-info">{{concepto.usuario}}</a><br /> {{concepto.nombre}} 
+                                            {%if concepto.cantidad < 0%}<span style="color:#EA4459">{%endif%} $ {{concepto.cantidad|floatformat:2|intcomma}}</span>
+                                        </p>
+                                        <small class="block text-muted"><i class="fa fa-clock-o"></i> {{concepto.fecha}}</small>
+                                    </li>
+                                    {%endfor%}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3" id="columna" >
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        {%if orden%}
+                        <div class="form-group">
+                            <label class="col-sm-12 control-label" style="text-align: left;">
+                                Folio: {{orden.folio}}
+                            </label>
+                            <label class="col-sm-12 control-label" style="text-align: left;">
+                                Operador: {{orden.operador}}
+                            </label>
+                            <label class="col-sm-12 control-label" style="text-align: left;">
+                                Alta: {{orden.fecha_alta}}
+                            </label>
+                            <label class="col-sm-12 control-label" style="text-align: left;">
+                                Total: {{orden.total|floatformat:2|intcomma}} $
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-12 control-label" style="text-align: left;">
+                                <small class="">{{form.estatus.label}}</small>
+                            </label>
+                            <br />
+                            <div class="col-sm-12">
+                                {{orden_estatus.estatus}}
+                            </div>
+                        </div>
+                        {%endif%}
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-12 control-label" style="text-align: left;">
+                                <small class="">{{conceptoform.nombre.label}}</small>
+                            </label>
+                            <br />
+                            <div class="input-group col-sm-12">
+                                <span class="input-group-addon"><i class="fa fa-comments-o"></i></span>
+                                {{conceptoform.nombre}}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-12 control-label" style="text-align: left;">
+                                <small class="">{{conceptoform.cantidad.label}}</small>
+                            </label>
+                            <br />
+                            <div class="input-group col-sm-12">
+                                <span class="input-group-addon"><i class="fa fa-money"></i></span>
+                                {{conceptoform.cantidad}}
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group" style="margin-bottom: 0px;">
+                            <div class="col-sm-4 col-sm-offset-2" style="width: 100%;">
+                                <a class="btn btn-white" type="button" onclick="history.go(-1);">Regresar</a>
+                                <button class="btn btn-success" type="submit" name="guardar">Guardar</button>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group" style="margin-bottom: 0px;">
+                            <div class="col-sm-4 col-sm-offset-2" style="width: 100%;">
+                                {%if orden%}
+                                <a href="{%url 'imprimir_orden' orden.folio%}" class="btn btn-white" type="submit" name="guardar">Imprimir</a>
+                                {%endif%}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {%if orden%}
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content" style=" padding: 0px 0px 0px 0px;margin-bottom: 25px;!importat">
+                        <div class="chat-discussion">
+                            {%for mensaje_orden in mensajes_orden%}
+                            <div class="chat-message">
+                                <img class="message-avatar" src="{{STATIC_URL}}images/avatar.png" alt="" >
+                                <div class="message">
+                                    <a class="message-author" href="#"> {{mensaje_orden.usuario}} </a>
+                                    <span class="message-date"> {{mensaje_orden.fecha_hora|naturaltime}} </span>
+                                    <span class="message-content">
+                                    {{mensaje_orden.mensaje}}
+                                    </span>
+                                </div>
+                            </div>
+                            {%empty%}
+                            <div class="chat-message">
+                                Sin comentarios
+                            </div>
+                            {%endfor%}
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="chat-message-form">
+
+                                    <div class="form-group" style="margin-right: 3px;margin-left: 3px;">
+                                        <br />
+                                        {{mensaje.mensaje}}
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group" style="margin-bottom: 15px;">
+                            <div class="col-sm-4 col-sm-offset-2" style="width: 100%;">
+                                <button class="btn btn-white" type="submit" name="enviar_comentarios">Enviar comentario</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {%endif%}
+            </div>
+        </form>
+    </div>
+{%endblock%}
+
+{%block js%}
+<!-- Data picker -->
+<script src="{{STATIC_URL}}inspinia/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+<!-- Jquery Validate -->
+<script src="{{STATIC_URL}}inspinia/js/plugins/validate/jquery.validate.min.js"></script>
+<script src="{{STATIC_URL}}js/language.validate.js"></script>
+<!-- Chosen -->
+<script src="{{STATIC_URL}}inspinia/js/plugins/chosen/chosen.jquery.js"></script>
+
+{%endblock%}
+
+{%block scripts%}
+<script>
+    $(document).ready(function(){
+        $('#fecha_1 .input-group.date').datepicker({
+            todayBtn: "linked",
+            keyboardNavigation: false,
+            forceParse: false,
+            calendarWeeks: false,
+            autoclose: true,
+            language:"es",
+            todayHighlight: true,
+        });
+        $('#fecha_2 .input-group.date').datepicker({
+            todayBtn: "linked",
+            keyboardNavigation: false,
+            forceParse: false,
+            calendarWeeks: false,
+            autoclose: true,
+            language:"es",
+            todayHighlight: true,
+        });
+        $('#fecha_3 .input-group.date').datepicker({
+            todayBtn: "linked",
+            keyboardNavigation: false,
+            forceParse: false,
+            calendarWeeks: false,
+            autoclose: true,
+            language:"es",
+            todayHighlight: true,
+        });
+        var validator = $('#form').validate({
+            messages: {},
+            lang: 'es'
+        });
+        validator.settings.ignore = ":hidden:not(select)";
+        var config = {
+            '.chosen-select'           : {},
+            '.chosen-select-deselect'  : {allow_single_deselect:true},
+            '.chosen-select-no-single' : {disable_search_threshold:10},
+            '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
+            '.chosen-select-width'     : {width:"100%"}
+        }
+        $('.chosen-select').css({minWidth: '100%', width: 'auto'});
+        for (var selector in config) {
+            $(selector).chosen(config[selector]);
+        }
+
+        var tecnicos_locales = {{tecnicos_locales|safe}}
+        var tecnicos_foraneos = {{tecnicos_foraneos|safe}}
+
+        function actualizar_tecnicos(tipo){
+            if (tipo == 'locales'){
+                tecnicos = tecnicos_locales
+            }
+            else{
+                tecnicos = tecnicos_foraneos
+            }
+            $("#id_tecnico").empty()
+            $("#id_tecnico").append(new Option('---------',''));
+            $.each(tecnicos, function(i,el){
+                $("#id_tecnico").append(new Option(el.fields.username, el.pk));
+            });
+            {%if orden%}$('#id_tecnico').val('{{orden.tecnico.id}}'){%endif%}
+            $("#id_tecnico").trigger("chosen:updated");
+        };
+
+        
+
+        $( "#id_tienda" ).change(function() {
+            actualizar_marca($( "#id_tienda" ).val());
+            $("#id_modelo").empty()
+            $("#id_modelo").append(new Option('---------',''));
+            $("#id_modelo").trigger("chosen:updated");
+        });
+
+        $( "#id_marca" ).change(function() {
+            actualizar_modelo($( "#id_marca" ).val());
+        });
+
+        function actualizar_marca(id_tienda) {
+            var data = {
+                'tienda': id_tienda,
+            };
+            $.ajax({
+                url : "{%url 'actualizar_marca'%}", 
+                type : "POST", 
+                data : data, 
+                success : function(json) {
+                    $("#id_marca").empty()
+                    $("#id_marca").append(new Option('---------',''));
+                    $.each(json, function(i,el){
+                        $("#id_marca").append(new Option(el.fields.nombre, el.pk));
+                    });
+                    {%if orden%}$('#id_marca').val('{{orden.marca.id}}'){%endif%}
+                    $("#id_marca").trigger("chosen:updated");
+                },
+                error : function(xhr,errmsg,err) {
+                    alert('Ocurrio un error')
+                    console.log(xhr.status + ": " + xhr.responseText); 
+                }
+            });
+        };
+
+        function actualizar_modelo(id_marca) {
+            var data = {
+                'marca': id_marca,
+            };
+            $.ajax({
+                url : "{%url 'actualizar_modelo'%}", 
+                type : "POST", 
+                data : data, 
+                success : function(json) {
+                    $("#id_modelo").empty()
+                    $("#id_modelo").append(new Option('---------',''));
+                    $.each(json, function(i,el){
+                        $("#id_modelo").append(new Option(el.fields.nombre, el.pk));
+                    });
+                    {%if orden%}$('#id_modelo').val('{{orden.modelo.id}}'){%endif%}
+                    $("#id_modelo").trigger("chosen:updated");
+                },
+                error : function(xhr,errmsg,err) {
+                    alert('Ocurrio un error')
+                    console.log(xhr.status + ": " + xhr.responseText); 
+                }
+            });
+        };
+
+        {%if orden%}
+            $('#id_tienda').val('{{orden.tienda.id}}')
+            $("#id_tienda").trigger("chosen:updated");
+            actualizar_marca({{orden.tienda.id}})
+            actualizar_modelo({{orden.marca.id}})
+        {%else%}
+            $("#id_marca").empty()
+            $("#id_marca").append(new Option('---------',''));
+            $("#id_marca").trigger("chosen:updated");
+
+            $("#id_modelo").empty()
+            $("#id_modelo").append(new Option('---------',''));
+            $("#id_modelo").trigger("chosen:updated");
+        {%endif%}
+
+
+        if ($('#id_zona_0').is(":checked"))
+        {
+            actualizar_tecnicos('locales')
+        }
+        else{
+            actualizar_tecnicos('foraneos')
+        }
+
+        $( "#id_zona_0" ).change(function() {
+            actualizar_tecnicos('locales')
+        });
+        $( "#id_zona_1" ).change(function() {
+            actualizar_tecnicos('foraneos')
+        });
+
+    });
+</script>
+{%endblock%}

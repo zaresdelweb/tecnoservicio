@@ -6,8 +6,69 @@ from django.views.generic import DetailView, ListView, RedirectView, UpdateView
 
 from braces.views import LoginRequiredMixin
 
-from .forms import UserForm
+from .forms import *
 from .models import User
+
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.http import HttpResponseRedirect, HttpResponse
+from django.db.models import Q
+from django.contrib.auth import logout
+
+
+def inicio(request):
+    return render(request, 'pages/inicio.html', locals())
+
+def salir(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('home'))
+
+def mi_password(request):
+    form = PasswordForm()
+    if request.method == "POST":
+        form = PasswordForm(request.POST)
+        if form.is_valid():
+            password = form.cleaned_data.get("password1")
+            request.user.set_password(password)
+            request.user.save()
+            messages.info(request, 'Cambiamos tu contraseña')
+            return HttpResponseRedirect(reverse('inicio'))
+    return render(request, 'users/password_form.html', locals())
+
+def lista_usuario(request):
+    objects = User.objects.all()
+    return render(request, 'users/usuario_lista.html', locals())
+
+def alta_usuario(request):
+    form = UsuarioForm()
+    if request.method == "POST":
+        form = UsuarioForm(request.POST)
+        if form.is_valid():
+            password = form.cleaned_data.get("password1")
+            o = form.save(commit=False)
+            o.set_password(password)
+            o.save()
+            messages.info(request, 'Se dió de alta el usuario: '+ o.username.encode('utf-8'))
+            return HttpResponseRedirect(reverse('lista_usuario'))
+    return render(request, 'users/usuario_form.html', locals())
+
+def editar_usuario(request, id):
+    usuario = User.objects.filter(id = id)[0]
+    form = Usuario_editarForm(instance= usuario)
+    if request.method == "POST":
+        form = Usuario_editarForm(request.POST, instance=usuario)
+        if form.is_valid():
+            o = form.save()
+            messages.info(request, 'Se modificó exitosamente el usuario: '+ o.username.encode('utf-8'))
+            return HttpResponseRedirect(reverse('lista_usuario'))
+    return render(request, 'users/usuario_form.html', locals())
+
+def eliminar_usuario(request, id):
+    user = User.objects.filter(id=id)[0]
+    nombre = user.username
+    user.delete()
+    messages.info(request, 'Se eliminó con exito el usuario: ' + nombre)
+    return HttpResponseRedirect(reverse('lista_usuario'))
 
 
 class UserDetailView(LoginRequiredMixin, DetailView):

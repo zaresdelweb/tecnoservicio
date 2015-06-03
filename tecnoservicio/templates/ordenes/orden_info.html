@@ -1,0 +1,541 @@
+{%extends "base.html"%}
+{% load crispy_forms_tags %}
+{% load humanize %}
+
+{%block styles%}
+<link href="{{STATIC_URL}}inspinia/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
+<link href="{{STATIC_URL}}inspinia/css/plugins/chosen/chosen.css" rel="stylesheet">
+<style type="text/css" media="screen">
+.ibox {
+  margin-bottom: 0px;
+  margin-top: 3px;
+}
+.skin-1 .wrapper-content {
+  padding: 7px 15px 30px;
+}
+.error{
+  font-size: 10px;
+  margin-bottom: 0px;
+}
+.input-group-addon {
+  border: 0px solid #E5E6E7;
+}
+.form-group {
+  margin-bottom: -3px;
+} 
+.ibox-content {
+  padding: 0px 20px 15px 20px;
+}
+.chat-discussion {
+  background: #FCF9F9;
+  padding: 0px;
+  height: 350px;
+}
+#page-wrapper {
+  padding: 0 5px;
+}
+
+#columna {
+  padding-right: 1px;
+  padding-left: 3px;
+}
+</style>
+{%endblock%}
+
+{%block content%}
+    <div class="row">
+        <form id="form" method="post" enctype="multipart/form-data" class="form-horizontal">{% csrf_token %}
+            <div class="col-md-9">
+                <div class="row">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-content">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label" style="text-align: left;">
+                                            <small class="">{{form.servicio.label}} </small>
+                                        </label>
+                                        <br />
+                                        <div class="col-sm-12">
+                                            {%if orden.servicio%}{{orden.servicio}}{%else%}-{%endif%}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label" style="text-align: left;">
+                                            <small class="">{{form.zona.label}}</small>
+                                        </label>
+                                        <br />
+                                        <div class="col-sm-12">
+                                            {%if orden.zona%}{{orden.zona}}{%else%}-{%endif%}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4" id="fecha_1">
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label" style="text-align: left;">
+                                            <small class="">{{form.fecha_programada.label}}</small>
+                                        </label>
+                                        <br />
+                                        <div class="col-sm-12">
+                                            {%if orden.fecha_programada%}{{orden.fecha_programada}}{%else%}-{%endif%}
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label" style="text-align: left;">
+                                            <small class="">{{form.concepto.label}}</small>
+                                        </label>
+                                        <br />
+                                        <div class="col-sm-12">
+                                            {%if orden.concepto%}{{orden.concepto}}{%else%}-{%endif%}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label" style="text-align: left;">
+                                            <small class="">{{form.tecnico.label}}</small>
+                                        </label>
+                                        <br />
+                                        <div class="col-sm-12">
+                                            {%if orden.tecnico%}{{orden.tecnico}}{%else%}-{%endif%}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-content">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label" style="text-align: left;">
+                                            <small class="">{{form.cliente.label}}</small>
+                                        </label>
+                                        <br />
+                                        <div class="col-sm-12">
+                                            {%if orden.cliente%}{{orden.cliente}}{%else%}-{%endif%}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label" style="text-align: left;">
+                                            <small class="">{{form.email.label}}</small>
+                                        </label>
+                                        <br />
+                                        <div class="col-sm-12">
+                                            {%if orden.email%}{{orden.email}}{%else%}-{%endif%}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label" style="text-align: left;">
+                                            <small class="">{{form.telefono_casa.label}}</small>
+                                        </label>
+                                        <br />
+                                        <div class="col-sm-12">
+                                            {%if orden.telefono_casa%}{{orden.telefono_casa}}{%else%}-{%endif%}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label" style="text-align: left;">
+                                            <small class="">{{form.telefono_oficina.label}}</small>
+                                        </label>
+                                        <br />
+                                        <div class="col-sm-12">
+                                            {%if orden.telefono_oficina%}{{orden.telefono_oficina}}{%else%}-{%endif%}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label" style="text-align: left;">
+                                            <small class="">{{form.telefono_movil.label}}</small>
+                                        </label>
+                                        <br />
+                                        <div class="col-sm-12">
+                                            {%if orden.telefono_movil%}{{orden.telefono_movil}}{%else%}-{%endif%}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label" style="text-align: left;">
+                                            <small class="">{{form.direccion.label}}</small>
+                                        </label>
+                                        <br />
+                                        <div class="col-sm-12">
+                                            {%if orden.direccion%}{{orden.direccion}}{%else%}-{%endif%}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label" style="text-align: left;">
+                                            <small class="">{{form.colonia.label}}</small>
+                                        </label>
+                                        <br />
+                                        <div class="col-sm-12">
+                                            {%if orden.colonia%}{{orden.colonia}}{%else%}-{%endif%}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label" style="text-align: left;">
+                                            <small class="">{{form.municipio_delegacion.label}}</small>
+                                        </label>
+                                        <br />
+                                        <div class="col-sm-12">
+                                            {%if orden.municipio_delegacion%}{{orden.municipio_delegacion}}{%else%}-{%endif%}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label" style="text-align: left;">
+                                            <small class="">{{form.codigo_postal.label}}</small>
+                                        </label>
+                                        <br />
+                                        <div class="col-sm-12">
+                                            {%if orden.codigo_postal%}{{orden.codigo_postal}}{%else%}-{%endif%}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label" style="text-align: left;">
+                                            <small class="">{{form.entre.label}}</small>
+                                        </label>
+                                        <br />
+                                        <div class="col-sm-12">
+                                            {%if orden.entre%}{{orden.entre}}{%else%}-{%endif%}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label" style="text-align: left;">
+                                            <small class="">{{form.y_entre.label}}</small>
+                                        </label>
+                                        <br />
+                                        <div class="col-sm-12">
+                                            {%if orden.y_entre%}{{orden.y_entre}}{%else%}-{%endif%}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-content">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label" style="text-align: left;">
+                                            <small class="">{{form.reporta.label}}</small>
+                                        </label>
+                                        <br />
+                                        <div class="col-sm-12">
+                                            {%if orden.reporta%}{{orden.reporta}}{%else%}-{%endif%}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label" style="text-align: left;">
+                                            <small class="">{{form.tienda.label}}</small>
+                                        </label>
+                                        <br />
+                                        <div class="col-sm-12">
+                                            {%if orden.tienda%}{{orden.tienda}}{%else%}-{%endif%}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3" id="fecha_2">
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label" style="text-align: left;">
+                                            <small class="">{{form.fecha_compra.label}}</small>
+                                        </label>
+                                        <br />
+                                        <div class="col-sm-12">
+                                            {%if orden.fecha_compra%}{{orden.fecha_compra}}{%else%}-{%endif%}
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <div class="col-md-3" id="fecha_3">
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label" style="text-align: left;">
+                                            <small class="">{{form.fecha_entrega.label}}</small>
+                                        </label>
+                                        <br />
+                                        <div class="col-sm-12">
+                                            {%if orden.fecha_entrega%}{{orden.fecha_entrega}}{%else%}-{%endif%}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label" style="text-align: left;">
+                                            <small class="">{{form.marca.label}}</small>
+                                        </label>
+                                        <br />
+                                        <div class="col-sm-12">
+                                            {%if orden.marca%}{{orden.marca}}{%else%}-{%endif%}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label" style="text-align: left;">
+                                            <small class="">{{form.modelo.label}}</small>
+                                        </label>
+                                        <br />
+                                        <div class="col-sm-12">
+                                            {%if orden.modelo%}{{orden.modelo}}{%else%}-{%endif%}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label" style="text-align: left;">
+                                            <small class="">{{form.no_serie.label}}</small>
+                                        </label>
+                                        <br />
+                                        <div class="col-sm-12">
+                                            {%if orden.no_serie%}{{orden.no_serie}}{%else%}-{%endif%}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-content">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="col-sm-12 control-label" style="text-align: left;">
+                                                <small class="">{{form.icon_os.label}}</small>
+                                            </label>
+                                            <br />
+                                            <div class="col-sm-12">
+                                                {%if orden.icon_os%}{{orden.icon_os}}{%else%}-{%endif%}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="col-sm-12 control-label" style="text-align: left;">
+                                                <small class="">{{form.icon_ics.label}}</small>
+                                            </label>
+                                            <br />
+                                            <div class="col-sm-12">
+                                                {%if orden.icon_ics%}{{orden.icon_ics}}{%else%}-{%endif%}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="col-sm-12 control-label" style="text-align: left;">
+                                                <small class="">{{form.icon_on.label}}</small>
+                                            </label>
+                                            <br />
+                                            <div class="col-sm-12">
+                                                {%if orden.icon_on%}{{orden.icon_on}}{%else%}-{%endif%}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="col-sm-12 control-label" style="text-align: left;">
+                                                <small class="">{{form.icon_cn.label}}</small>
+                                            </label>
+                                            <br />
+                                            <div class="col-sm-12">
+                                                {%if orden.icon_cn%}{{orden.icon_cn}}{%else%}-{%endif%}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="col-sm-12 control-label" style="text-align: left;">
+                                                <small class="">{{form.observaciones.label}}</small>
+                                            </label>
+                                            <br />
+                                            <div class="col-sm-12">
+                                                {%if orden.observaciones%}{{orden.observaciones}}{%else%}-{%endif%}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="col-sm-12 control-label" style="text-align: left;">
+                                                <small class="">{{form.comentarios.label}}</small>
+                                            </label>
+                                            <br />
+                                            <div class="col-sm-12">
+                                                {%if orden.comentarios%}{{orden.comentarios}}{%else%}-{%endif%}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6" style="padding-right: 3px; padding-left: 0px;">
+                        <div class="ibox float-e-margins" style="margin-bottom: 25px;!importat">
+                            <div class="ibox-title">
+                                <h5>Historial de la orden</h5>
+                            </div>
+                            <div class="ibox-content no-padding">
+                                <ul class="list-group">
+                                    {%for version in version_list%}
+                                    <li class="list-group-item">
+                                        <p><a class="text-info">{{version.revision.user}}</a> {{version.revision.comment}} </p>
+                                        <small class="block text-muted"><i class="fa fa-clock-o"></i> {{version.revision.date_created}}</small>
+                                    </li>
+                                    {%endfor%}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3" id="columna" >
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        {%if orden%}
+                        <div class="form-group">
+                            <label class="col-sm-12 control-label" style="text-align: left;">
+                                Folio: {%if orden.folio%}{{orden.folio}}{%else%}-{%endif%}
+                            </label>
+                            <label class="col-sm-12 control-label" style="text-align: left;">
+                                Operador: {%if orden.operador%}{{orden.operador}}{%else%}-{%endif%}
+                            </label>
+                            <label class="col-sm-12 control-label" style="text-align: left;">
+                                Alta: {%if orden.fecha_alta%}{{orden.fecha_alta}}{%else%}-{%endif%}
+                            </label>
+                            <label class="col-sm-12 control-label" style="text-align: left;">
+                                Total: {{orden.total|floatformat:2|intcomma}} $
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-12 control-label" style="text-align: left;">
+                                <small class="">{{form.estatus.label}}</small>
+                            </label>
+                            <br />
+                            <div class="col-sm-12">
+                                {%if orden.estatus%}{{orden.estatus}}{%else%}-{%endif%}
+                            </div>
+                        </div>
+                        {%endif%}
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group" style="margin-bottom: 0px;">
+                            <div class="col-sm-4 col-sm-offset-2" style="width: 100%;">
+                                <a class="btn btn-white" type="button" onclick="history.go(-1);">Regresar</a>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group" style="margin-bottom: 0px;">
+                            <div class="col-sm-4 col-sm-offset-2" style="width: 100%;">
+                                <a href="{%url 'imprimir_orden' orden.folio%}" class="btn btn-white" type="submit" name="guardar">Imprimir</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {%if orden%}
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content" style=" padding: 0px 0px 0px 0px;margin-bottom: 25px;!importat">
+                        <div class="chat-discussion">
+                            {%for mensaje_orden in mensajes_orden%}
+                            <div class="chat-message">
+                                <img class="message-avatar" src="{{STATIC_URL}}images/avatar.png" alt="" >
+                                <div class="message">
+                                    <a class="message-author" href="#"> {{mensaje_orden.usuario}} </a>
+                                    <span class="message-date"> {{mensaje_orden.fecha_hora|naturaltime}} </span>
+                                    <span class="message-content">
+                                    {{mensaje_orden.mensaje}}
+                                    </span>
+                                </div>
+                            </div>
+                            {%empty%}
+                            <div class="chat-message">
+                                Sin comentarios
+                            </div>
+                            {%endfor%}
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="chat-message-form">
+
+                                    <div class="form-group" style="margin-right: 3px;margin-left: 3px;">
+                                        <br />
+                                        {{mensaje.mensaje}}
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group" style="margin-bottom: 15px;">
+                            <div class="col-sm-4 col-sm-offset-2" style="width: 100%;">
+                                <button class="btn btn-white" type="submit" name="enviar_comentarios">Enviar comentario</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {%endif%}
+            </div>
+        </form>
+    </div>
+{%endblock%}
+
+{%block js%}
+<!-- Data picker -->
+<script src="{{STATIC_URL}}inspinia/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+<!-- Jquery Validate -->
+<script src="{{STATIC_URL}}inspinia/js/plugins/validate/jquery.validate.min.js"></script>
+<script src="{{STATIC_URL}}js/language.validate.js"></script>
+<!-- Chosen -->
+<script src="{{STATIC_URL}}inspinia/js/plugins/chosen/chosen.jquery.js"></script>
+
+{%endblock%}
+
+{%block scripts%}
+<script>
+    $(document).ready(function(){
+    });
+</script>
+{%endblock%}

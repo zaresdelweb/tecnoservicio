@@ -8,7 +8,6 @@ from django.conf import settings
 from django.http import HttpResponse
 from django.template.loader import render_to_string
 from django.template import TemplateDoesNotExist
-from django.contrib.sites.models import Site
 from django.core.mail import EmailMultiAlternatives, EmailMessage
 from django.utils.translation import ugettext_lazy as _
 from django import forms
@@ -21,7 +20,7 @@ except ImportError:
 
 from ..utils import (import_attribute, get_user_model,
                      generate_unique_username,
-                     resolve_url)
+                     resolve_url, get_current_site)
 
 from . import app_settings
 
@@ -56,7 +55,7 @@ class DefaultAccountAdapter(object):
     def format_email_subject(self, subject):
         prefix = app_settings.EMAIL_SUBJECT_PREFIX
         if prefix is None:
-            site = Site.objects.get_current()
+            site = get_current_site()
             prefix = "[{name}] ".format(name=site.name)
         return prefix + force_text(subject)
 
@@ -168,10 +167,13 @@ class DefaultAccountAdapter(object):
         if app_settings.USER_MODEL_USERNAME_FIELD:
             user_username(user,
                           username
-                          or generate_unique_username([first_name,
-                                                       last_name,
-                                                       email,
-                                                       'user']))
+                          or self.generate_unique_username([first_name,
+                                                            last_name,
+                                                            email,
+                                                            'user']))
+
+    def generate_unique_username(self, txts, regex=None):
+        return generate_unique_username(txts, regex)
 
     def save_user(self, request, user, form, commit=True):
         """
@@ -266,6 +268,8 @@ class DefaultAccountAdapter(object):
 
     def ajax_response(self, request, response, redirect_to=None, form=None):
         data = {}
+        status = response.status_code
+
         if redirect_to:
             status = 200
             data['location'] = redirect_to

@@ -5,9 +5,9 @@ from . import views
 
 urlpatterns = patterns(
     "",
-    url(r"^registro/$", views.signup, name="account_signup"),
-    url(r"^entrar/$", views.login, name="account_login"),
-    url(r"^salir/$", views.logout, name="account_logout"),
+    url(r"^signup/$", views.signup, name="account_signup"),
+    url(r"^login/$", views.login, name="account_login"),
+    url(r"^logout/$", views.logout, name="account_logout"),
 
     url(r"^password/change/$", views.password_change,
         name="account_change_password"),

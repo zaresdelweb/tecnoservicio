@@ -21,29 +21,6 @@ from .common import *  # noqa
 # Raises ImproperlyConfigured exception if DJANO_SECRET_KEY not in os.environ
 SECRET_KEY = VAR_SECRET_KEY
 
-# This ensures that Django will be able to detect a secure connection
-# properly on Heroku.
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
-# django-secure
-# ------------------------------------------------------------------------------
-INSTALLED_APPS += ("djangosecure", )
-
-MIDDLEWARE_CLASSES = (
-    # Make sure djangosecure.middleware.SecurityMiddleware is listed first
-    'djangosecure.middleware.SecurityMiddleware',
-) + MIDDLEWARE_CLASSES
-
-# set this to 60 seconds and then to 518400 when you can prove it works
-SECURE_HSTS_SECONDS = 60
-SECURE_HSTS_INCLUDE_SUBDOMAINS = VAR_SECURE_HSTS_INCLUDE_SUBDOMAINS
-SECURE_FRAME_DENY = VAR_DJANGO_SECURE_FRAME_DENY
-SECURE_CONTENT_TYPE_NOSNIFF = VAR_DJANGO_SECURE_CONTENT_TYPE_NOSNIFF
-SECURE_BROWSER_XSS_FILTER = True
-SESSION_COOKIE_SECURE = False
-SESSION_COOKIE_HTTPONLY = True
-SECURE_SSL_REDIRECT = VAR_DJANGO_SECURE_SSL_REDIRECT
-
 # SITE CONFIGURATION
 # ------------------------------------------------------------------------------
 # Hosts/domain names that are valid for this site

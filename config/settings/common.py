@@ -276,3 +276,5 @@ LOGGING = {
 # Your common stuff: Below this line define 3rd party library settings
 DOMINIO = 'http://sistematecno.com'
 CELERY_RESULT_BACKEND='djcelery.backends.database:DatabaseBackend'
+DEFAULT_FROM_EMAIL = 'SistemaTecno <g@zaresdelweb.com>'
+EMAIL_SUBJECT_PREFIX = '[SistemaTecno] '
